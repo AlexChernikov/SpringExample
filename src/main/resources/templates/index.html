@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<h2>Main Page</h2>
+<div id="formForRegistration">
+    <p>Введите номер телефона: {{ phoneNumber }}</p>
+    <input id="UsersProblem.phoneNumber" v-model="phoneNumber">
+    <p>Введите своё сообщение:</p>
+    <input id="UsersProblem.message" v-model="message">
+    <br><br>
+    <button v-on:click="sendOnServer">ОТПРАВИТЬ</button>
+</div>
+</body>
+<script>
+    var formForRegistration = new Vue({
+        el: '#formForRegistration',
+        data: {
+            phoneNumber: '',
+            message: ''
+        },
+        methods: {
+            sendOnServer: function () {
+                axios.post(window.location.origin + "/mainPost", {
+                    phoneNumber : this.phoneNumber,
+                    message : this.message
+                })
+            }
+        }
+    });
+</script>
+</html>
