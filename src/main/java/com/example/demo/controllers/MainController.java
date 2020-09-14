@@ -1,11 +1,18 @@
 package com.example.demo.controllers;
 
+import com.example.demo.entity.UserProblem;
+import com.example.demo.repos.UserProblemRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class  MainController {
+
+    @Autowired
+    UserProblemRepo userProblemRepo;
+
     @GetMapping("/main")
     public String main() {
         return "index";
@@ -15,6 +22,8 @@ public class  MainController {
     public String mainPost(@RequestBody phoneAndMessage phoneAndMessage) {
         System.out.println(phoneAndMessage.getPhoneNumber());
         System.out.println(phoneAndMessage.getMessage());
+        UserProblem userProblem = new UserProblem(phoneAndMessage.getPhoneNumber(), phoneAndMessage.getMessage());
+        userProblemRepo.saveAndFlush(userProblem);
         return "index";
     }
 
